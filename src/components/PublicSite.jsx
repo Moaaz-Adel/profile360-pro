@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { GITHUB_URL, autoGradients, getRepoEmoji } from "../data";
 import {
   ResponsiveContainer,
   AreaChart,
@@ -27,7 +26,10 @@ import {
   growthArea,
   trafficArea,
   techPie,
-  achievementBar
+  achievementBar,
+  GITHUB_URL,
+  autoGradients,
+  getRepoEmoji
 } from "../data";
 
 const item = {
@@ -42,20 +44,23 @@ const tooltipStyle = {
   color: "#fff"
 };
 
+// 🆕 QA-Focused Filters
 const filters = [
   { label: "All", value: "all" },
-  { label: "Web Apps", value: "web" },
-  { label: "UI/UX", value: "ui" },
-  { label: "Data", value: "data" },
-  { label: "Mobile", value: "mobile" }
+  { label: "Automation", value: "automation" },
+  { label: "API Testing", value: "api" },
+  { label: "Performance", value: "performance" },
+  { label: "Mobile", value: "mobile" },
+  { label: "CI/CD", value: "cicd" }
 ];
 
+// 🆕 QA-Focused Typing Roles
 const roles = [
-  "Full Stack Developer",
-  "UI/UX Enthusiast",
-  "Creative Technologist",
-  "Data Storyteller",
-  "Interactive App Builder"
+  "Senior QA Engineer",
+  "Test Automation Architect",
+  "Playwright & Cypress Expert",
+  "API Testing Specialist",
+  "Quality Assurance Leader"
 ];
 
 function Section({ id, className = "", children }) {
@@ -85,7 +90,7 @@ function SectionHead({ eyebrow, title }) {
       transition={{ duration: 0.55 }}
       className="mb-10"
     >
-      <span className="mb-3 inline-block text-xs font-extrabold uppercase tracking-[0.18em] text-cyan-600 dark:text-cyan-400">
+      <span className="mb-3 inline-block text-xs font-extrabold uppercase tracking-[0.18em] text-emerald-600 dark:text-emerald-400">
         {eyebrow}
       </span>
       <h2 className="font-display text-3xl font-bold md:text-5xl">{title}</h2>
@@ -192,14 +197,23 @@ function TypingRoles() {
   return (
     <span>
       {text}
-      <span className="animate-pulse text-cyan-500">|</span>
+      <span className="animate-pulse text-emerald-500">|</span>
     </span>
   );
 }
 
 export default function PublicSite({
-  theme, setTheme, user, projects, views,
-  addMessage, showToast, onLoginClick, onAdminClick, github}) {
+  theme,
+  setTheme,
+  user,
+  projects,
+  views,
+  addMessage,
+  showToast,
+  onLoginClick,
+  onAdminClick,
+  github
+}) {
   const [activeFilter, setActiveFilter] = useState("all");
   const [testimonialIndex, setTestimonialIndex] = useState(0);
   const [form, setForm] = useState({
@@ -208,8 +222,8 @@ export default function PublicSite({
     message: ""
   });
 
+  // Merge GitHub repos with local projects
   const visibleProjects = (() => {
-    // Use real GitHub featured repos if available, otherwise use local projects
     const source = github?.data?.featured?.length
       ? github.data.featured.map((repo, index) => ({
           id: `gh-${repo.id}`,
@@ -217,7 +231,7 @@ export default function PublicSite({
           description:
             repo.description ||
             `A ${repo.language || "code"} project with ${repo.forks_count || 0} forks and ${repo.stargazers_count || 0} stars.`,
-          categories: [repo.language?.toLowerCase() || "web"],
+          categories: [repo.language?.toLowerCase() || "automation", repo.topics?.[0] || "e2e"].filter(Boolean),
           tags: [
             repo.language,
             ...(repo.topics || []).slice(0, 2),
@@ -229,18 +243,18 @@ export default function PublicSite({
           githubUrl: repo.html_url,
           language: repo.language
         }))
-      : projects.filter((p) => p.featured);
+      : projects;
 
     return source.filter((project) => {
       const cats = (project.categories || []).map((c) => c.toLowerCase());
       return (
         activeFilter === "all" ||
-        cats.includes(activeFilter) ||
-        project.language?.toLowerCase() === activeFilter
+        cats.includes(activeFilter)
       );
     });
   })();
 
+  // Use live GitHub languages if available, otherwise fallback to techPie
   const languageData = github?.data?.languages?.length
     ? github.data.languages
     : techPie;
@@ -283,19 +297,19 @@ export default function PublicSite({
       <header className="sticky top-0 z-50 border-b border-slate-200/60 bg-white/75 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/75">
         <div className="mx-auto flex w-[min(1200px,calc(100%-2rem))] items-center justify-between py-4">
           <a href="#home" className="font-display text-xl font-bold">
-            Profile
-            <span className="bg-gradient-to-r from-violet-500 to-cyan-500 bg-clip-text text-transparent">
-              360
+            Moaaz
+            <span className="bg-gradient-to-r from-emerald-500 to-cyan-500 bg-clip-text text-transparent">
+              .QA
             </span>
           </a>
 
           <nav className="hidden items-center gap-6 text-sm font-semibold text-slate-600 dark:text-slate-300 lg:flex">
-            <a href="#about" className="transition hover:text-violet-500">About</a>
-            <a href="#skills" className="transition hover:text-violet-500">Skills</a>
-            <a href="#projects" className="transition hover:text-violet-500">Projects</a>
-            <a href="#timeline" className="transition hover:text-violet-500">Timeline</a>
-            <a href="#analytics" className="transition hover:text-violet-500">Analytics</a>
-            <a href="#contact" className="transition hover:text-violet-500">Contact</a>
+            <a href="#about" className="transition hover:text-emerald-500">About</a>
+            <a href="#skills" className="transition hover:text-emerald-500">Skills</a>
+            <a href="#projects" className="transition hover:text-emerald-500">Projects</a>
+            <a href="#timeline" className="transition hover:text-emerald-500">Timeline</a>
+            <a href="#analytics" className="transition hover:text-emerald-500">Analytics</a>
+            <a href="#contact" className="transition hover:text-emerald-500">Contact</a>
           </nav>
 
           <div className="flex items-center gap-3">
@@ -309,7 +323,7 @@ export default function PublicSite({
             {user ? (
               <button
                 onClick={onAdminClick}
-                className="rounded-2xl bg-gradient-to-r from-violet-600 to-cyan-500 px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-violet-500/25 transition hover:-translate-y-0.5"
+                className="rounded-2xl bg-gradient-to-r from-emerald-600 to-cyan-500 px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-emerald-500/25 transition hover:-translate-y-0.5"
               >
                 Dashboard
               </button>
@@ -343,19 +357,12 @@ export default function PublicSite({
               variants={item}
               className="mb-7 inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/70 px-4 py-2 text-sm font-bold text-slate-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-300"
             >
-              ✨ Advanced Interactive Personal Profile
+              ✨ Senior QA Engineer & Test Automation Architect
             </motion.div>
-
-            {github?.loading && (
-              <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/70 px-4 py-2 text-sm font-semibold text-slate-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-300">
-                <span className="h-2 w-2 animate-ping rounded-full bg-violet-500" />
-                Syncing with GitHub…
-              </div>
-            )}
 
             <div className="grid items-center gap-8 lg:grid-cols-[1.15fr_0.85fr]">
               <motion.div variants={item}>
-                <p className="mb-3 font-bold text-cyan-600 dark:text-cyan-400">
+                <p className="mb-3 font-bold text-emerald-600 dark:text-emerald-400">
                   Hello, I am
                 </p>
 
@@ -368,33 +375,31 @@ export default function PublicSite({
                 </h2>
 
                 <p className="mt-6 max-w-2xl leading-8 text-slate-600 dark:text-slate-300">
-                  I build modern, engaging digital experiences with a focus on design,
-                  interactivity, performance, and storytelling. This platform showcases my
-                  skills, projects, journey, and achievements in a visually rich way.
+                  I build robust test automation frameworks, ensure software excellence, and deliver bug-free experiences at scale. Specializing in Playwright, Cypress, and CI/CD pipeline integration.
                 </p>
 
                 <div className="mt-8 flex flex-wrap gap-3">
                   <a
                     href="#projects"
-                    className="rounded-2xl bg-gradient-to-r from-violet-600 to-cyan-500 px-5 py-3.5 font-bold text-white shadow-lg shadow-violet-500/25 transition hover:-translate-y-1"
+                    className="rounded-2xl bg-gradient-to-r from-emerald-600 to-cyan-500 px-5 py-3.5 font-bold text-white shadow-lg shadow-emerald-500/25 transition hover:-translate-y-1"
                   >
-                    🚀 View Projects
+                    🚀 View Automation Projects
                   </a>
 
                   <a
                     href="#contact"
                     className="rounded-2xl border border-slate-200/70 bg-white/70 px-5 py-3.5 font-bold dark:border-white/10 dark:bg-white/5"
                   >
-                    💬 Contact Me
+                    💬 Discuss QA Strategy
                   </a>
                 </div>
 
                 <div className="mt-8 flex flex-wrap gap-3">
-                  {["GitHub", "LinkedIn", "Email", "Portfolio"].map((social) => (
+                  {["GitHub", "LinkedIn", "Email", "Resume"].map((social) => (
                     <a
                       key={social}
                       href="#"
-                      className="rounded-2xl border border-slate-200/70 bg-white/70 px-4 py-3 text-sm font-bold text-slate-600 transition hover:-translate-y-1 hover:border-violet-400 dark:border-white/10 dark:bg-white/5 dark:text-slate-300"
+                      className="rounded-2xl border border-slate-200/70 bg-white/70 px-4 py-3 text-sm font-bold text-slate-600 transition hover:-translate-y-1 hover:border-emerald-400 dark:border-white/10 dark:bg-white/5 dark:text-slate-300"
                     >
                       {social}
                     </a>
@@ -404,16 +409,16 @@ export default function PublicSite({
 
               <motion.div variants={item}>
                 <Panel className="relative overflow-hidden text-center">
-                  <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-violet-500 via-cyan-500 to-emerald-500" />
+                  <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-emerald-500 via-cyan-500 to-blue-500" />
 
                   {github?.data?.user?.avatar_url ? (
                     <img
                       src={github.data.user.avatar_url}
                       alt={github.data.user.name || github.data.user.login}
-                      className="mx-auto mb-5 h-28 w-28 rounded-[32px] object-cover shadow-2xl shadow-violet-500/30 ring-4 ring-white/10"
+                      className="mx-auto mb-5 h-28 w-28 rounded-[32px] object-cover shadow-2xl shadow-emerald-500/30 ring-4 ring-white/10"
                     />
                   ) : (
-                    <div className="mx-auto mb-5 grid h-28 w-28 place-items-center rounded-[32px] bg-gradient-to-br from-violet-600 to-cyan-500 text-3xl font-extrabold text-white shadow-2xl shadow-violet-500/30">
+                    <div className="mx-auto mb-5 grid h-28 w-28 place-items-center rounded-[32px] bg-gradient-to-br from-emerald-600 to-cyan-500 text-3xl font-extrabold text-white shadow-2xl shadow-emerald-500/30">
                       {github?.loading ? "…" : "MA"}
                     </div>
                   )}
@@ -427,20 +432,19 @@ export default function PublicSite({
                       href={GITHUB_URL}
                       target="_blank"
                       rel="noreferrer"
-                      className="mt-1 inline-block text-sm text-slate-500 transition hover:text-violet-500 dark:text-slate-400"
+                      className="mt-1 inline-block text-sm text-slate-500 transition hover:text-emerald-500 dark:text-slate-400"
                     >
                       @{github.data.user.login}
                     </a>
                   )}
 
                   <p className="mt-3 text-slate-600 dark:text-slate-300">
-                    {github?.data?.user?.bio ||
-                      "Full-stack developer crafting AI-powered apps, testing systems, and interactive 3D web experiences."}
+                    Senior QA Engineer | Remote Worldwide
                   </p>
 
                   <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-emerald-500/25 bg-emerald-500/10 px-4 py-2 text-sm font-bold text-emerald-600 dark:text-emerald-400">
                     <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-emerald-500" />
-                    Available for opportunities
+                    Open to Senior QA / Lead Roles
                   </div>
 
                   <div className="mt-6 grid grid-cols-3 gap-3">
@@ -448,21 +452,27 @@ export default function PublicSite({
                       <strong className="block text-xl">
                         <Counter value={github?.data?.user?.public_repos || 0} />
                       </strong>
-                      <span className="text-xs text-slate-500 dark:text-slate-400">Repos</span>
+                      <span className="text-xs text-slate-500 dark:text-slate-400">
+                        Repos
+                      </span>
                     </div>
 
                     <div className="rounded-3xl border border-slate-200/70 bg-white/70 p-4 dark:border-white/10 dark:bg-white/5">
                       <strong className="block text-xl">
                         <Counter value={github?.data?.followers || 0} />
                       </strong>
-                      <span className="text-xs text-slate-500 dark:text-slate-400">Followers</span>
+                      <span className="text-xs text-slate-500 dark:text-slate-400">
+                        Followers
+                      </span>
                     </div>
 
                     <div className="rounded-3xl border border-slate-200/70 bg-white/70 p-4 dark:border-white/10 dark:bg-white/5">
                       <strong className="block text-xl">
                         <Counter value={github?.data?.totalStars || 0} />
                       </strong>
-                      <span className="text-xs text-slate-500 dark:text-slate-400">Stars</span>
+                      <span className="text-xs text-slate-500 dark:text-slate-400">
+                        Stars
+                      </span>
                     </div>
                   </div>
 
@@ -485,39 +495,39 @@ export default function PublicSite({
 
             <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
               <Panel>
-                <div className="bg-gradient-to-r from-violet-500 to-cyan-500 bg-clip-text text-3xl font-extrabold text-transparent">
+                <div className="bg-gradient-to-r from-emerald-500 to-cyan-500 bg-clip-text text-3xl font-extrabold text-transparent">
                   <Counter value={views} />
                 </div>
                 <p className="mt-2 text-slate-600 dark:text-slate-300">Profile Views</p>
               </Panel>
 
               <Panel>
-                <div className="bg-gradient-to-r from-violet-500 to-cyan-500 bg-clip-text text-3xl font-extrabold text-transparent">
-                  <Counter value={projects.length} />
+                <div className="bg-gradient-to-r from-emerald-500 to-cyan-500 bg-clip-text text-3xl font-extrabold text-transparent">
+                  <Counter value={500} suffix="+" />
                 </div>
-                <p className="mt-2 text-slate-600 dark:text-slate-300">Live Projects</p>
+                <p className="mt-2 text-slate-600 dark:text-slate-300">Bugs Caught</p>
               </Panel>
 
               <Panel>
-                <div className="bg-gradient-to-r from-violet-500 to-cyan-500 bg-clip-text text-3xl font-extrabold text-transparent">
-                  <Counter value={7} suffix="" />
+                <div className="bg-gradient-to-r from-emerald-500 to-cyan-500 bg-clip-text text-3xl font-extrabold text-transparent">
+                  <Counter value={8500} suffix="+" />
                 </div>
-                <p className="mt-2 text-slate-600 dark:text-slate-300">Certifications</p>
+                <p className="mt-2 text-slate-600 dark:text-slate-300">Tests Automated</p>
               </Panel>
 
               <Panel>
-                <div className="bg-gradient-to-r from-violet-500 to-cyan-500 bg-clip-text text-3xl font-extrabold text-transparent">
-                  <Counter value={150} suffix="%" />
+                <div className="bg-gradient-to-r from-emerald-500 to-cyan-500 bg-clip-text text-3xl font-extrabold text-transparent">
+                  <Counter value={2400} suffix="h" />
                 </div>
-                <p className="mt-2 text-slate-600 dark:text-slate-300">Commitment</p>
+                <p className="mt-2 text-slate-600 dark:text-slate-300">Manual Hours Saved</p>
               </Panel>
             </div>
 
-            {/* 🆕 GitHub Live Stats */}
+            {/* GitHub Live Stats */}
             <div className="mt-8 grid gap-4 md:grid-cols-3">
               <Panel>
                 <div className="flex items-center gap-4">
-                  <div className="grid h-12 w-12 place-items-center rounded-2xl bg-violet-500/15 text-xl text-violet-500">
+                  <div className="grid h-12 w-12 place-items-center rounded-2xl bg-emerald-500/15 text-xl text-emerald-500">
                     💻
                   </div>
                   <div>
@@ -543,7 +553,7 @@ export default function PublicSite({
 
               <Panel>
                 <div className="flex items-center gap-4">
-                  <div className="grid h-12 w-12 place-items-center rounded-2xl bg-emerald-500/15 text-xl text-emerald-500">
+                  <div className="grid h-12 w-12 place-items-center rounded-2xl bg-blue-500/15 text-xl text-blue-500">
                     🏷️
                   </div>
                   <div>
@@ -559,7 +569,7 @@ export default function PublicSite({
         </Section>
 
         <Section id="about">
-          <SectionHead eyebrow="About Me" title="Professional Overview" />
+          <SectionHead eyebrow="About Me" title="Quality Assurance Overview" />
 
           <div className="grid gap-6 lg:grid-cols-2">
             <motion.div
@@ -572,35 +582,32 @@ export default function PublicSite({
                 <h3 className="mb-4 font-display text-xl font-bold">Who I Am</h3>
 
                 <p className="leading-8 text-slate-600 dark:text-slate-300">
-                  I am a passionate developer and designer who enjoys building interactive
-                  applications, elegant interfaces, and meaningful digital products. My goal is
-                  to combine technology, creativity, and usability to create experiences that
-                  feel memorable and useful.
+                  I am a Senior QA Engineer with deep expertise in building scalable test automation frameworks, designing comprehensive testing strategies, and ensuring software quality across web, mobile, and API layers. I specialize in transforming manual testing processes into automated, CI/CD-integrated pipelines.
                 </p>
 
                 <div className="mt-6 grid gap-4">
                   {[
                     {
-                      icon: "🎯",
-                      title: "Goal-Oriented",
-                      text: "Focused on delivering polished products with real user value."
+                      icon: "🤖",
+                      title: "Automation Architect",
+                      text: "Design and implement Playwright, Cypress, and Selenium frameworks from scratch."
                     },
                     {
-                      icon: "🎨",
-                      title: "Design-Conscious",
-                      text: "I care about layout, motion, accessibility, and visual clarity."
+                      icon: "🔄",
+                      title: "CI/CD Integration",
+                      text: "Embed testing into GitHub Actions, Jenkins, and GitLab pipelines with quality gates."
                     },
                     {
-                      icon: "⚡",
-                      title: "Interactive-First",
-                      text: "I enjoy building interfaces that respond, animate, and engage."
+                      icon: "📊",
+                      title: "Quality Metrics",
+                      text: "Track test coverage, defect density, automation ROI, and flaky test reduction."
                     }
                   ].map((feature) => (
                     <div
                       key={feature.title}
                       className="flex items-start gap-4 rounded-3xl border border-slate-200/70 bg-white/70 p-4 dark:border-white/10 dark:bg-white/5"
                     >
-                      <div className="grid h-11 w-11 place-items-center rounded-2xl bg-gradient-to-br from-violet-600/20 to-cyan-500/20 text-xl">
+                      <div className="grid h-11 w-11 place-items-center rounded-2xl bg-gradient-to-br from-emerald-600/20 to-cyan-500/20 text-xl">
                         {feature.icon}
                       </div>
 
@@ -615,11 +622,11 @@ export default function PublicSite({
                 </div>
 
                 <div className="mt-6 flex flex-wrap gap-2.5">
-                  <Chip>Web Development</Chip>
-                  <Chip>UI Animation</Chip>
-                  <Chip>Data Visualization</Chip>
-                  <Chip>Personal Branding</Chip>
-                  <Chip>Responsive Design</Chip>
+                  <Chip>E2E Testing</Chip>
+                  <Chip>API Testing</Chip>
+                  <Chip>Performance</Chip>
+                  <Chip>Shift-Left Testing</Chip>
+                  <Chip>ISTQB Certified</Chip>
                 </div>
               </Panel>
             </motion.div>
@@ -631,7 +638,7 @@ export default function PublicSite({
               transition={{ duration: 0.6, delay: 0.08 }}
             >
               <Panel className="h-full">
-                <h3 className="mb-4 font-display text-xl font-bold">Growth Progress</h3>
+                <h3 className="mb-4 font-display text-xl font-bold">QA Maturity Growth</h3>
 
                 <div className="h-[340px]">
                   <ResponsiveContainer width="100%" height="100%">
@@ -659,7 +666,7 @@ export default function PublicSite({
         </Section>
 
         <Section id="skills">
-          <SectionHead eyebrow="Skills" title="Interactive Skill Analysis" />
+          <SectionHead eyebrow="Skills" title="Testing & Automation Expertise" />
 
           <div className="grid gap-6 lg:grid-cols-2">
             <motion.div
@@ -669,7 +676,7 @@ export default function PublicSite({
               transition={{ duration: 0.6 }}
             >
               <Panel className="h-full">
-                <h3 className="mb-4 font-display text-xl font-bold">Skill Radar</h3>
+                <h3 className="mb-4 font-display text-xl font-bold">QA Skill Radar</h3>
 
                 <div className="h-[340px]">
                   <ResponsiveContainer width="100%" height="100%">
@@ -681,8 +688,8 @@ export default function PublicSite({
                       />
                       <Radar
                         dataKey="value"
-                        stroke="#7c3aed"
-                        fill="#7c3aed"
+                        stroke="#10b981"
+                        fill="#10b981"
                         fillOpacity={0.22}
                         strokeWidth={3}
                       />
@@ -700,7 +707,7 @@ export default function PublicSite({
               transition={{ duration: 0.6, delay: 0.08 }}
             >
               <Panel className="h-full">
-                <h3 className="mb-6 font-display text-xl font-bold">Technical Strengths</h3>
+                <h3 className="mb-6 font-display text-xl font-bold">Core Competencies</h3>
 
                 <div className="grid gap-6">
                   {skillBars.map((skill) => (
@@ -718,7 +725,7 @@ export default function PublicSite({
                           whileInView={{ width: `${skill.level}%` }}
                           viewport={{ once: true, amount: 0.6 }}
                           transition={{ duration: 1.1, ease: "easeOut" }}
-                          className="h-3 rounded-full bg-gradient-to-r from-violet-500 to-cyan-500"
+                          className="h-3 rounded-full bg-gradient-to-r from-emerald-500 to-cyan-500"
                         />
                       </div>
                     </div>
@@ -730,7 +737,7 @@ export default function PublicSite({
         </Section>
 
         <Section id="projects">
-          <SectionHead eyebrow="Projects" title="Featured Work" />
+          <SectionHead eyebrow="Projects" title="Featured Frameworks & Tools" />
 
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -745,7 +752,7 @@ export default function PublicSite({
                 onClick={() => setActiveFilter(filter.value)}
                 className={`rounded-full px-5 py-3 text-sm font-bold transition ${
                   activeFilter === filter.value
-                    ? "bg-gradient-to-r from-violet-600 to-cyan-500 text-white shadow-lg shadow-violet-500/25"
+                    ? "bg-gradient-to-r from-emerald-600 to-cyan-500 text-white shadow-lg shadow-emerald-500/25"
                     : "border border-slate-200/70 bg-white/70 text-slate-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-300"
                 }`}
               >
@@ -780,7 +787,7 @@ export default function PublicSite({
                       </p>
 
                       <div className="mt-4 flex flex-wrap gap-2">
-                        {project.tags.map((tag) => (
+                        {(project.tags || []).map((tag) => (
                           <Chip key={tag}>{tag}</Chip>
                         ))}
                       </div>
@@ -791,7 +798,7 @@ export default function PublicSite({
                             href={project.githubUrl}
                             target="_blank"
                             rel="noreferrer"
-                            className="rounded-xl border border-slate-200/70 bg-white/70 px-4 py-2.5 text-sm font-bold transition hover:-translate-y-1 hover:border-violet-500 dark:border-white/10 dark:bg-white/5"
+                            className="rounded-xl border border-slate-200/70 bg-white/70 px-4 py-2.5 text-sm font-bold transition hover:-translate-y-1 hover:border-emerald-500 dark:border-white/10 dark:bg-white/5"
                           >
                             ⭐ View on GitHub
                           </a>
@@ -800,7 +807,7 @@ export default function PublicSite({
                             href="#"
                             className="rounded-xl border border-slate-200/70 bg-white/70 px-4 py-2.5 text-sm font-bold dark:border-white/10 dark:bg-white/5"
                           >
-                            Live Demo
+                            Case Study
                           </a>
                         )}
                       </div>
@@ -813,10 +820,10 @@ export default function PublicSite({
         </Section>
 
         <Section id="timeline">
-          <SectionHead eyebrow="Journey" title="Career & Education Timeline" />
+          <SectionHead eyebrow="Journey" title="Career & QA Evolution" />
 
           <div className="relative mx-auto max-w-[860px] pl-8">
-            <div className="absolute bottom-2 left-2 top-2 w-[3px] rounded-full bg-gradient-to-b from-violet-500 via-cyan-500 to-emerald-500 opacity-70" />
+            <div className="absolute bottom-2 left-2 top-2 w-[3px] rounded-full bg-gradient-to-b from-emerald-500 via-cyan-500 to-blue-500 opacity-70" />
 
             {timelineData.map((timeline, index) => (
               <motion.div
@@ -827,9 +834,9 @@ export default function PublicSite({
                 transition={{ duration: 0.55, delay: index * 0.04 }}
                 className="relative pb-10 pl-10"
               >
-                <span className="absolute left-[-5px] top-1.5 h-4 w-4 rounded-full bg-gradient-to-r from-violet-500 to-cyan-500 shadow-[0_0_0_7px_rgba(124,58,237,0.15)]" />
+                <span className="absolute left-[-5px] top-1.5 h-4 w-4 rounded-full bg-gradient-to-r from-emerald-500 to-cyan-500 shadow-[0_0_0_7px_rgba(16,185,129,0.15)]" />
 
-                <span className="mb-3 inline-block rounded-full border border-slate-200/70 bg-white/70 px-4 py-2 text-sm font-bold text-cyan-600 dark:border-white/10 dark:bg-white/5 dark:text-cyan-400">
+                <span className="mb-3 inline-block rounded-full border border-slate-200/70 bg-white/70 px-4 py-2 text-sm font-bold text-emerald-600 dark:border-white/10 dark:bg-white/5 dark:text-emerald-400">
                   {timeline.year}
                 </span>
 
@@ -844,7 +851,7 @@ export default function PublicSite({
         </Section>
 
         <Section id="analytics">
-          <SectionHead eyebrow="Analytics" title="Visual Profile Insights" />
+          <SectionHead eyebrow="Analytics" title="Quality & Testing Insights" />
 
           <div className="grid gap-6 xl:grid-cols-3">
             <motion.div
@@ -854,7 +861,7 @@ export default function PublicSite({
               transition={{ duration: 0.6 }}
             >
               <Panel className="h-full">
-                <h3 className="mb-4 font-display text-xl font-bold">Profile Traffic</h3>
+                <h3 className="mb-4 font-display text-xl font-bold">Test Execution Volume</h3>
 
                 <div className="h-[300px]">
                   <ResponsiveContainer width="100%" height="100%">
@@ -866,8 +873,8 @@ export default function PublicSite({
                       <Area
                         type="monotone"
                         dataKey="visitors"
-                        stroke="#7c3aed"
-                        fill="rgba(124, 58, 237, 0.16)"
+                        stroke="#10b981"
+                        fill="rgba(16, 185, 129, 0.16)"
                         strokeWidth={3}
                       />
                     </AreaChart>
@@ -883,7 +890,7 @@ export default function PublicSite({
               transition={{ duration: 0.6, delay: 0.08 }}
             >
               <Panel className="h-full">
-                <h3 className="mb-4 font-display text-xl font-bold">Technology Stack</h3>
+                <h3 className="mb-4 font-display text-xl font-bold">Automation Stack</h3>
 
                 <div className="h-[300px]">
                   <ResponsiveContainer width="100%" height="100%">
@@ -898,7 +905,7 @@ export default function PublicSite({
                         label
                       >
                         {[
-                          "#7c3aed",
+                          "#10b981",
                           "#06b6d4",
                           "#22c55e",
                           "#f59e0b",
@@ -921,7 +928,7 @@ export default function PublicSite({
               transition={{ duration: 0.6, delay: 0.16 }}
             >
               <Panel className="h-full">
-                <h3 className="mb-4 font-display text-xl font-bold">Achievements</h3>
+                <h3 className="mb-4 font-display text-xl font-bold">QA Achievements</h3>
 
                 <div className="h-[300px]">
                   <ResponsiveContainer width="100%" height="100%">
@@ -932,7 +939,7 @@ export default function PublicSite({
                       <Tooltip contentStyle={tooltipStyle} />
                       <Bar dataKey="count" radius={12}>
                         {[
-                          "#7c3aed",
+                          "#10b981",
                           "#06b6d4",
                           "#22c55e",
                           "#f59e0b",
@@ -950,7 +957,7 @@ export default function PublicSite({
         </Section>
 
         <Section id="testimonials">
-          <SectionHead eyebrow="Testimonials" title="What People Say" />
+          <SectionHead eyebrow="Testimonials" title="What Teams & Leaders Say" />
 
           <motion.div
             initial={{ opacity: 0, y: 28 }}
@@ -960,7 +967,7 @@ export default function PublicSite({
             className="mx-auto max-w-[860px]"
           >
             <Panel className="text-center">
-              <div className="mb-6 font-display text-6xl text-violet-500/70">“</div>
+              <div className="mb-6 font-display text-6xl text-emerald-500/70">“</div>
 
               <AnimatePresence mode="wait">
                 <motion.div
@@ -1003,7 +1010,7 @@ export default function PublicSite({
                       onClick={() => setTestimonialIndex(index)}
                       className={`h-2.5 rounded-full transition-all ${
                         index === testimonialIndex
-                          ? "w-8 bg-gradient-to-r from-violet-500 to-cyan-500"
+                          ? "w-8 bg-gradient-to-r from-emerald-500 to-cyan-500"
                           : "w-2.5 bg-slate-300 dark:bg-white/20"
                       }`}
                     />
@@ -1024,7 +1031,7 @@ export default function PublicSite({
         </Section>
 
         <Section id="contact">
-          <SectionHead eyebrow="Contact" title="Let’s Build Something Great" />
+          <SectionHead eyebrow="Contact" title="Let's Elevate Your QA Strategy" />
 
           <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
             <motion.div
@@ -1041,29 +1048,29 @@ export default function PublicSite({
                     {
                       icon: "📧",
                       title: "Email",
-                      value: "your.email@example.com"
+                      value: "moaaz.adel.m@gmail.com"
                     },
                     {
                       icon: "📱",
-                      title: "Phone",
-                      value: "+1 234 567 890"
+                      title: "Mobile",
+                      value: "+2 010 1407 4200"
                     },
                     {
-                      icon: "📍",
+                      icon: "🌍",
                       title: "Location",
-                      value: "Your City, Your Country"
+                      value: "Remote (Available Worldwide)"
                     },
                     {
                       icon: "💼",
                       title: "Open To",
-                      value: "Freelance, Internships, Full-time Roles, Collaborations"
+                      value: "Senior QA, QA Lead, Test Automation Architect, Consulting"
                     }
                   ].map((contact) => (
                     <div
                       key={contact.title}
                       className="flex items-start gap-4 rounded-3xl border border-slate-200/70 bg-white/70 p-4 dark:border-white/10 dark:bg-white/5"
                     >
-                      <div className="grid h-11 w-11 place-items-center rounded-2xl bg-gradient-to-br from-violet-600/20 to-cyan-500/20 text-xl">
+                      <div className="grid h-11 w-11 place-items-center rounded-2xl bg-gradient-to-br from-emerald-600/20 to-cyan-500/20 text-xl">
                         {contact.icon}
                       </div>
 
@@ -1078,9 +1085,10 @@ export default function PublicSite({
                 </div>
 
                 <div className="mt-6 flex flex-wrap gap-2.5">
-                  <Chip>Fast Response</Chip>
+                  <Chip>ISTQB Certified</Chip>
                   <Chip>Remote Friendly</Chip>
-                  <Chip>Creative Projects</Chip>
+                  <Chip>GMT+2 Timezone</Chip>
+                  <Chip>Immediate Availability</Chip>
                 </div>
               </Panel>
             </motion.div>
@@ -1103,7 +1111,7 @@ export default function PublicSite({
                       value={form.name}
                       onChange={handleFormChange}
                       placeholder="Enter your name"
-                      className="w-full rounded-2xl border border-slate-300/70 bg-white/75 px-4 py-3.5 outline-none transition focus:border-violet-500 focus:ring-4 focus:ring-violet-500/15 dark:border-white/10 dark:bg-white/5"
+                      className="w-full rounded-2xl border border-slate-300/70 bg-white/75 px-4 py-3.5 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/15 dark:border-white/10 dark:bg-white/5"
                     />
                   </div>
 
@@ -1115,7 +1123,7 @@ export default function PublicSite({
                       value={form.email}
                       onChange={handleFormChange}
                       placeholder="Enter your email"
-                      className="w-full rounded-2xl border border-slate-300/70 bg-white/75 px-4 py-3.5 outline-none transition focus:border-violet-500 focus:ring-4 focus:ring-violet-500/15 dark:border-white/10 dark:bg-white/5"
+                      className="w-full rounded-2xl border border-slate-300/70 bg-white/75 px-4 py-3.5 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/15 dark:border-white/10 dark:bg-white/5"
                     />
                   </div>
 
@@ -1125,14 +1133,14 @@ export default function PublicSite({
                       name="message"
                       value={form.message}
                       onChange={handleFormChange}
-                      placeholder="Write your message here..."
-                      className="min-h-[160px] w-full resize-y rounded-2xl border border-slate-300/70 bg-white/75 px-4 py-3.5 outline-none transition focus:border-violet-500 focus:ring-4 focus:ring-violet-500/15 dark:border-white/10 dark:bg-white/5"
+                      placeholder="Let's discuss your QA challenges..."
+                      className="min-h-[160px] w-full resize-y rounded-2xl border border-slate-300/70 bg-white/75 px-4 py-3.5 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/15 dark:border-white/10 dark:bg-white/5"
                     />
                   </div>
 
                   <button
                     type="submit"
-                    className="rounded-2xl bg-gradient-to-r from-violet-600 to-cyan-500 px-5 py-4 font-bold text-white shadow-lg shadow-violet-500/25 transition hover:-translate-y-1"
+                    className="rounded-2xl bg-gradient-to-r from-emerald-600 to-cyan-500 px-5 py-4 font-bold text-white shadow-lg shadow-emerald-500/25 transition hover:-translate-y-1"
                   >
                     Send Message ✨
                   </button>
@@ -1144,7 +1152,7 @@ export default function PublicSite({
       </main>
 
       <footer className="border-t border-slate-200/60 py-10 text-center text-slate-500 dark:border-white/10 dark:text-slate-400">
-        © 2026 Profile360 Pro. Built with React, Tailwind CSS, Framer Motion, and Recharts.
+        © 2026 Moaaz Adel | Senior QA Engineer. Built with React, Tailwind CSS, Framer Motion, and Recharts.
       </footer>
     </div>
   );
