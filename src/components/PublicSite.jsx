@@ -239,13 +239,10 @@ export default function PublicSite({
   setTheme,
   terminalMode,
   setTerminalMode,
-  user,
   projects,
   views,
   addMessage,
   showToast,
-  onLoginClick,
-  onAdminClick,
   github
 }) {
   const [activeFilter, setActiveFilter] = useState("all");
@@ -364,22 +361,6 @@ export default function PublicSite({
             >
               {theme === "dark" ? "☀️" : "🌙"}
             </button>
-
-            {user ? (
-              <button
-                onClick={onAdminClick}
-                className="rounded-2xl bg-gradient-to-r from-emerald-600 to-cyan-500 px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-emerald-500/25 transition hover:-translate-y-0.5"
-              >
-                Dashboard
-              </button>
-            ) : (
-              <button
-                onClick={onLoginClick}
-                className="rounded-2xl border border-slate-200/70 bg-white/70 px-4 py-2.5 text-sm font-bold dark:border-white/10 dark:bg-white/5"
-              >
-                Admin
-              </button>
-            )}
           </div>
         </div>
       </header>

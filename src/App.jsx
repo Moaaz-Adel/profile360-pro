@@ -1,29 +1,15 @@
-import { lazy, Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import useLocalStorage from "./hooks/useLocalStorage";
 import useGitHub from "./hooks/useGitHub";
 import PublicSite from "./components/PublicSite";
 import { initialProjects, seedMessages } from "./data";
 
-const Login = lazy(() => import("./components/Login"));
-const AdminDashboard = lazy(() => import("./components/AdminDashboard"));
-
-function RouteFallback() {
-  return (
-    <div className="grid min-h-screen place-items-center text-slate-400">
-      <span className="h-8 w-8 animate-spin rounded-full border-2 border-current border-t-transparent" />
-    </div>
-  );
-}
-
 export default function App() {
   const [theme, setTheme] = useLocalStorage("p360-theme", "dark");
   const [terminalMode, setTerminalMode] = useLocalStorage("p360-terminal", false);
-  const [user, setUser] = useLocalStorage("p360-user", null);
-  const [page, setPage] = useState("site");
 
-  const [projects, setProjects] = useLocalStorage("p360-projects", initialProjects);
-  const [messages, setMessages] = useLocalStorage("p360-messages", seedMessages);
+  const [, setMessages] = useLocalStorage("p360-messages", seedMessages);
   const [views, setViews] = useLocalStorage("p360-views", 1863);
   const [toast, setToast] = useState("");
 
@@ -41,34 +27,12 @@ export default function App() {
   }, [toast]);
 
   useEffect(() => {
-    if (page === "site") {
-      setViews((prev) => Number(prev) + 1);
-    }
+    setViews((prev) => Number(prev) + 1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function showToast(message) {
     setToast(message);
-  }
-
-  function handleLogin(email, password) {
-    if (email.trim().toLowerCase() === "admin@profile360.com" && password === "admin123") {
-      setUser({
-        name: "Admin",
-        email: "admin@profile360.com",
-        role: "admin"
-      });
-      setPage("admin");
-      showToast("Welcome back, Admin 👋");
-    } else {
-      showToast("Use admin@profile360.com / admin123");
-    }
-  }
-
-  function handleLogout() {
-    setUser(null);
-    setPage("site");
-    showToast("Logged out successfully");
   }
 
   function addMessage(message) {
@@ -91,72 +55,17 @@ export default function App() {
         <div className="absolute bottom-0 left-0 h-96 w-96 rounded-full bg-amber-500/10 blur-3xl" />
       </div>
 
-      <AnimatePresence mode="wait">
-        {page === "site" && (
-          <motion.div
-            key="site"
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -16 }}
-            transition={{ duration: 0.35 }}
-          >
-            <PublicSite
-              theme={theme}
-              setTheme={setTheme}
-              terminalMode={terminalMode}
-              setTerminalMode={setTerminalMode}
-              user={user}
-              projects={projects}
-              views={views}
-              addMessage={addMessage}
-              showToast={showToast}
-              onLoginClick={() => setPage("login")}
-              onAdminClick={() => setPage(user ? "admin" : "login")}
-              github={github}
-            />
-          </motion.div>
-        )}
-
-        {page === "login" && (
-          <motion.div
-            key="login"
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -16 }}
-            transition={{ duration: 0.35 }}
-          >
-            <Suspense fallback={<RouteFallback />}>
-              <Login onLogin={handleLogin} onBack={() => setPage("site")} />
-            </Suspense>
-          </motion.div>
-        )}
-
-        {page === "admin" && user && (
-          <motion.div
-            key="admin"
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -16 }}
-            transition={{ duration: 0.35 }}
-          >
-            <Suspense fallback={<RouteFallback />}>
-              <AdminDashboard
-                user={user}
-                theme={theme}
-                setTheme={setTheme}
-                onLogout={handleLogout}
-                projects={projects}
-                setProjects={setProjects}
-                messages={messages}
-                setMessages={setMessages}
-                views={views}
-                showToast={showToast}
-                github={github}
-              />
-            </Suspense>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <PublicSite
+        theme={theme}
+        setTheme={setTheme}
+        terminalMode={terminalMode}
+        setTerminalMode={setTerminalMode}
+        projects={initialProjects}
+        views={views}
+        addMessage={addMessage}
+        showToast={showToast}
+        github={github}
+      />
 
       <AnimatePresence>
         {toast && (
