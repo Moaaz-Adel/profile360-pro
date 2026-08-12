@@ -409,7 +409,7 @@ export default function PublicSite({
             </motion.div>
 
             <div className="grid items-center gap-8 lg:grid-cols-[1.15fr_0.85fr]">
-              <motion.div variants={item}>
+              <motion.div variants={item} className="min-w-0">
                 <p className="mb-3 font-bold text-emerald-600 dark:text-emerald-400">
                   Hello, I am
                 </p>
