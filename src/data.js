@@ -235,6 +235,28 @@ export const projectGradients = [
   { label: "Orange Yellow", value: "bg-gradient-to-br from-orange-500 to-yellow-500" }
 ];
 
+export const impactTicker = [
+  "500+ bugs intercepted pre-production",
+  "85% faster regression · 8h → 1h",
+  "92% critical journeys automated",
+  "0 P0 defects escaped · 12 months",
+  "ISTQB Certified Senior QA Engineer",
+  "Playwright · Cypress · k6 · Docker",
+  "Readora · GitHub Universe · Open Source",
+  "Remote · GMT+2 · Available Now"
+];
+
+export const navSections = [
+  { id: "home", label: "Home" },
+  { id: "about", label: "About" },
+  { id: "skills", label: "Skills" },
+  { id: "flashcards", label: "Flash Cards" },
+  { id: "projects", label: "Projects" },
+  { id: "timeline", label: "Timeline" },
+  { id: "analytics", label: "Analytics" },
+  { id: "contact", label: "Contact" }
+];
+
 export const flashCards = [
   {
     id: 1,

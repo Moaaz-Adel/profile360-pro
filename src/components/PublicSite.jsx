@@ -29,9 +29,19 @@ import {
   achievementBar,
   GITHUB_URL,
   autoGradients,
-  getRepoEmoji
+  getRepoEmoji,
+  navSections
 } from "../data";
 import FlashCards from "./FlashCards";
+import {
+  ScrollProgress,
+  ImpactTicker,
+  LiveClock,
+  FloatingActions,
+  useKonamiEasterEgg,
+  useScrollSpy,
+  NavLinks
+} from "./SiteEnhancements";
 
 const item = {
   hidden: { opacity: 0, y: 24 },
@@ -260,6 +270,9 @@ export default function PublicSite({
     ? github.data.languages
     : techPie;
 
+  const activeSection = useScrollSpy(navSections.map((s) => s.id));
+  useKonamiEasterEgg(showToast);
+
   useEffect(() => {
     const interval = setInterval(() => {
       setTestimonialIndex((prev) => (prev + 1) % testimonials.length);
@@ -295,6 +308,8 @@ export default function PublicSite({
 
   return (
     <div className="overflow-x-clip">
+      <ScrollProgress />
+
       <header className="sticky top-0 z-50 border-b border-slate-200/60 bg-white/75 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/75">
         <div className="mx-auto flex w-[min(1200px,calc(100%-2rem))] items-center justify-between py-4">
           <a href="#home" className="font-display text-xl font-bold">
@@ -304,15 +319,10 @@ export default function PublicSite({
             </span>
           </a>
 
-          <nav className="hidden items-center gap-6 text-sm font-semibold text-slate-600 dark:text-slate-300 lg:flex">
-            <a href="#about" className="transition hover:text-emerald-500">About</a>
-            <a href="#skills" className="transition hover:text-emerald-500">Skills</a>
-            <a href="#flashcards" className="transition hover:text-emerald-500">Flash Cards</a>
-            <a href="#projects" className="transition hover:text-emerald-500">Projects</a>
-            <a href="#timeline" className="transition hover:text-emerald-500">Timeline</a>
-            <a href="#analytics" className="transition hover:text-emerald-500">Analytics</a>
-            <a href="#contact" className="transition hover:text-emerald-500">Contact</a>
-          </nav>
+          <NavLinks
+            activeSection={activeSection}
+            className="hidden items-center gap-6 text-sm font-semibold text-slate-600 dark:text-slate-300 lg:flex"
+          />
 
           <div className="flex items-center gap-3">
             <button
@@ -357,9 +367,12 @@ export default function PublicSite({
           >
             <motion.div
               variants={item}
-              className="mb-7 inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/70 px-4 py-2 text-sm font-bold text-slate-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-300"
+              className="mb-7 flex flex-wrap items-center gap-3"
             >
-              ✨ Senior QA Engineer & Test Automation Architect
+              <span className="inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/70 px-4 py-2 text-sm font-bold text-slate-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-300">
+                ✨ Senior QA Engineer & Test Automation Architect
+              </span>
+              <LiveClock />
             </motion.div>
 
             <div className="grid items-center gap-8 lg:grid-cols-[1.15fr_0.85fr]">
@@ -397,16 +410,27 @@ export default function PublicSite({
                 </div>
 
                 <div className="mt-8 flex flex-wrap gap-3">
-                  {["GitHub", "LinkedIn", "Email", "Resume"].map((social) => (
+                  {[
+                    { label: "GitHub", href: GITHUB_URL, external: true },
+                    { label: "Email", href: "mailto:moaaz.adel.m@gmail.com" },
+                    { label: "WhatsApp", href: "https://wa.me/201014074200", external: true },
+                    { label: "Flash Cards", href: "#flashcards" }
+                  ].map((social) => (
                     <a
-                      key={social}
-                      href="#"
+                      key={social.label}
+                      href={social.href}
+                      target={social.external ? "_blank" : undefined}
+                      rel={social.external ? "noreferrer" : undefined}
                       className="rounded-2xl border border-slate-200/70 bg-white/70 px-4 py-3 text-sm font-bold text-slate-600 transition hover:-translate-y-1 hover:border-emerald-400 dark:border-white/10 dark:bg-white/5 dark:text-slate-300"
                     >
-                      {social}
+                      {social.label}
                     </a>
                   ))}
                 </div>
+
+                <motion.div variants={item} className="mt-8">
+                  <ImpactTicker />
+                </motion.div>
               </motion.div>
 
               <motion.div variants={item}>
@@ -738,7 +762,7 @@ export default function PublicSite({
           </div>
         </Section>
 
-        <FlashCards />
+        <FlashCards showToast={showToast} />
 
         <Section id="projects">
           <SectionHead eyebrow="Projects" title="Featured Frameworks & Tools" />
@@ -1158,6 +1182,8 @@ export default function PublicSite({
       <footer className="border-t border-slate-200/60 py-10 text-center text-slate-500 dark:border-white/10 dark:text-slate-400">
         © 2026 Moaaz Adel | Senior QA Engineer. Built with React, Tailwind CSS, Framer Motion, and Recharts.
       </footer>
+
+      <FloatingActions showToast={showToast} />
     </div>
   );
 }

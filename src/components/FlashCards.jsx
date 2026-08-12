@@ -1,6 +1,7 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { flashCards } from "../data";
+import { ConfettiBurst } from "./SiteEnhancements";
 
 const cardFilters = [
   { label: "All", value: "all" },
@@ -85,10 +86,12 @@ function FlashCard({ card, index, isFlipped, onFlip }) {
   );
 }
 
-export default function FlashCards() {
+export default function FlashCards({ showToast }) {
   const [activeCategory, setActiveCategory] = useState("all");
   const [flippedIds, setFlippedIds] = useState(new Set());
   const [shuffleKey, setShuffleKey] = useState(0);
+  const [showConfetti, setShowConfetti] = useState(false);
+  const [celebrated, setCelebrated] = useState(false);
 
   const filtered = useMemo(() => {
     const base =
@@ -122,13 +125,31 @@ export default function FlashCards() {
 
   const handleShuffle = () => {
     setFlippedIds(new Set());
+    setCelebrated(false);
     setShuffleKey((k) => k + 1);
   };
 
-  const handleReset = () => setFlippedIds(new Set());
+  const handleReset = () => {
+    setFlippedIds(new Set());
+    setCelebrated(false);
+  };
+
+  const isComplete = flippedCount === filtered.length && filtered.length > 0;
+
+  useEffect(() => {
+    if (!isComplete || celebrated) return;
+
+    setCelebrated(true);
+    setShowConfetti(true);
+    showToast?.("🏆 Full deck explored! You unlocked the BUGFREE2026 easter egg.");
+
+    const timer = setTimeout(() => setShowConfetti(false), 3500);
+    return () => clearTimeout(timer);
+  }, [isComplete, celebrated, showToast]);
 
   return (
     <section id="flashcards" className="mx-auto w-[min(1160px,calc(100%-2rem))] py-20">
+      <ConfettiBurst active={showConfetti} />
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -164,6 +185,7 @@ export default function FlashCards() {
               onClick={() => {
                 setActiveCategory(filter.value);
                 setFlippedIds(new Set());
+                setCelebrated(false);
               }}
               className={`rounded-full px-4 py-2.5 text-sm font-bold transition ${
                 activeCategory === filter.value
@@ -241,7 +263,7 @@ export default function FlashCards() {
         </motion.div>
       </AnimatePresence>
 
-      {flippedCount === filtered.length && filtered.length > 0 && (
+      {isComplete && (
         <motion.div
           initial={{ opacity: 0, y: 20, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
