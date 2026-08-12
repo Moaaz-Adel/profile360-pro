@@ -95,3 +95,29 @@ body {
     transform: translateY(110vh) rotate(720deg);
   }
 }
+
+/* Terminal mode */
+html.terminal-mode body {
+  @apply bg-slate-950 font-mono text-emerald-400;
+}
+
+html.terminal-mode .rounded-\[28px\] {
+  @apply rounded-lg border-emerald-500/30 bg-slate-900/90;
+}
+
+/* Print resume */
+@media print {
+  header,
+  footer,
+  .fixed,
+  #break-demo,
+  #flashcards,
+  #pipeline {
+    display: none !important;
+  }
+
+  #printable-resume {
+    border: none !important;
+    box-shadow: none !important;
+  }
+}

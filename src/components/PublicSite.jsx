@@ -34,6 +34,22 @@ import {
 } from "../data";
 import FlashCards from "./FlashCards";
 import {
+  AvailabilityStrip,
+  VideoIntro,
+  CaseStudiesSection,
+  QALabSection,
+  PipelineSection,
+  BugGraveyardSection,
+  ToolOrbsSection,
+  BreakPortfolioDemo,
+  ServicesSection,
+  CompareSection,
+  CertificationsSection,
+  BlogSection,
+  OpenSourceSection,
+  ResumeSection
+} from "./PortfolioSections";
+import {
   ScrollProgress,
   ImpactTicker,
   LiveClock,
@@ -42,6 +58,7 @@ import {
   useScrollSpy,
   NavLinks
 } from "./SiteEnhancements";
+import { LINKEDIN_URL, CALENDLY_URL, EMAIL } from "../data/portfolioExtras";
 
 const item = {
   hidden: { opacity: 0, y: 24 },
@@ -216,6 +233,8 @@ function TypingRoles() {
 export default function PublicSite({
   theme,
   setTheme,
+  terminalMode,
+  setTerminalMode,
   user,
   projects,
   views,
@@ -307,8 +326,9 @@ export default function PublicSite({
   }
 
   return (
-    <div className="overflow-x-clip">
+    <div className={`overflow-x-clip ${terminalMode ? "terminal-mode" : ""}`}>
       <ScrollProgress />
+      <AvailabilityStrip />
 
       <header className="sticky top-0 z-50 border-b border-slate-200/60 bg-white/75 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/75">
         <div className="mx-auto flex w-[min(1200px,calc(100%-2rem))] items-center justify-between py-4">
@@ -321,11 +341,20 @@ export default function PublicSite({
 
           <NavLinks
             activeSection={activeSection}
-            className="hidden items-center gap-6 text-sm font-semibold text-slate-600 dark:text-slate-300 lg:flex"
+            className="hidden max-w-[50vw] items-center gap-4 overflow-x-auto text-sm font-semibold text-slate-600 dark:text-slate-300 lg:flex"
           />
 
           <div className="flex items-center gap-3">
             <button
+              type="button"
+              onClick={() => setTerminalMode(!terminalMode)}
+              className="hidden rounded-2xl border border-slate-200/70 bg-white/70 px-3 py-2.5 text-sm font-bold dark:border-white/10 dark:bg-white/5 sm:inline-block"
+              title="Terminal mode"
+            >
+              {terminalMode ? "🖥️" : "⌨️"}
+            </button>
+            <button
+              type="button"
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
               className="rounded-2xl border border-slate-200/70 bg-white/70 px-4 py-2.5 text-sm font-bold dark:border-white/10 dark:bg-white/5"
             >
@@ -381,8 +410,10 @@ export default function PublicSite({
                   Hello, I am
                 </p>
 
-                <h1 className="font-display text-5xl font-extrabold leading-[0.98] md:text-7xl">
-                  {github?.data?.user?.name || "Moaaz Adel"}
+                <h1 className={`font-display text-5xl font-extrabold leading-[0.98] md:text-7xl ${
+                  terminalMode ? "font-mono text-emerald-400" : ""
+                }`}>
+                  {terminalMode ? "> " : ""}{github?.data?.user?.name || "Moaaz Adel"}
                 </h1>
 
                 <h2 className="mt-4 min-h-[2.8rem] text-xl font-semibold text-slate-600 dark:text-slate-300 md:text-2xl">
@@ -412,9 +443,9 @@ export default function PublicSite({
                 <div className="mt-8 flex flex-wrap gap-3">
                   {[
                     { label: "GitHub", href: GITHUB_URL, external: true },
-                    { label: "Email", href: "mailto:moaaz.adel.m@gmail.com" },
-                    { label: "WhatsApp", href: "https://wa.me/201014074200", external: true },
-                    { label: "Flash Cards", href: "#flashcards" }
+                    { label: "LinkedIn", href: LINKEDIN_URL, external: true },
+                    { label: "Email", href: `mailto:${EMAIL}` },
+                    { label: "Book Call", href: CALENDLY_URL, external: true }
                   ].map((social) => (
                     <a
                       key={social.label}
@@ -431,6 +462,8 @@ export default function PublicSite({
                 <motion.div variants={item} className="mt-8">
                   <ImpactTicker />
                 </motion.div>
+
+                <VideoIntro terminalMode={terminalMode} />
               </motion.div>
 
               <motion.div variants={item}>
@@ -691,6 +724,10 @@ export default function PublicSite({
           </div>
         </Section>
 
+        <CaseStudiesSection />
+        <QALabSection github={github} />
+        <PipelineSection />
+
         <Section id="skills">
           <SectionHead eyebrow="Skills" title="Testing & Automation Expertise" />
 
@@ -762,7 +799,11 @@ export default function PublicSite({
           </div>
         </Section>
 
+        <BugGraveyardSection />
+        <ToolOrbsSection />
+
         <FlashCards showToast={showToast} />
+        <BreakPortfolioDemo showToast={showToast} />
 
         <Section id="projects">
           <SectionHead eyebrow="Projects" title="Featured Frameworks & Tools" />
@@ -846,6 +887,13 @@ export default function PublicSite({
             </AnimatePresence>
           </motion.div>
         </Section>
+
+        <ServicesSection />
+        <CompareSection />
+        <CertificationsSection />
+        <OpenSourceSection github={github} />
+        <ResumeSection />
+        <BlogSection />
 
         <Section id="timeline">
           <SectionHead eyebrow="Journey" title="Career & QA Evolution" />

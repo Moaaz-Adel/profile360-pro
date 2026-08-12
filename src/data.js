@@ -249,11 +249,14 @@ export const impactTicker = [
 export const navSections = [
   { id: "home", label: "Home" },
   { id: "about", label: "About" },
+  { id: "case-studies", label: "Cases" },
+  { id: "qa-lab", label: "QA Lab" },
   { id: "skills", label: "Skills" },
-  { id: "flashcards", label: "Flash Cards" },
+  { id: "flashcards", label: "Cards" },
   { id: "projects", label: "Projects" },
-  { id: "timeline", label: "Timeline" },
-  { id: "analytics", label: "Analytics" },
+  { id: "services", label: "Services" },
+  { id: "resume", label: "Resume" },
+  { id: "blog", label: "Blog" },
   { id: "contact", label: "Contact" }
 ];
 

@@ -9,6 +9,7 @@ import { initialProjects, seedMessages } from "./data";
 
 export default function App() {
   const [theme, setTheme] = useLocalStorage("p360-theme", "dark");
+  const [terminalMode, setTerminalMode] = useLocalStorage("p360-terminal", false);
   const [user, setUser] = useLocalStorage("p360-user", null);
   const [page, setPage] = useState("site");
 
@@ -22,7 +23,8 @@ export default function App() {
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", theme === "dark");
-  }, [theme]);
+    document.documentElement.classList.toggle("terminal-mode", terminalMode);
+  }, [theme, terminalMode]);
 
   useEffect(() => {
     const timer = setTimeout(() => setToast(""), 3200);
@@ -92,6 +94,8 @@ export default function App() {
             <PublicSite
               theme={theme}
               setTheme={setTheme}
+              terminalMode={terminalMode}
+              setTerminalMode={setTerminalMode}
               user={user}
               projects={projects}
               views={views}
