@@ -1,0 +1,16 @@
+{
+  "name": "Moaaz.QA — Senior QA Engineer Portfolio",
+  "short_name": "Moaaz.QA",
+  "description": "Senior QA Engineer & Test Automation Architect portfolio",
+  "start_url": "/profile360-pro/",
+  "display": "standalone",
+  "background_color": "#020617",
+  "theme_color": "#10b981",
+  "icons": [
+    {
+      "src": "/profile360-pro/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
