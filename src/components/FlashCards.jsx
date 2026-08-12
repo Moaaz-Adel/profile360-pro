@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { flashCards } from "../data";
 import { ConfettiBurst } from "./SiteEnhancements";
@@ -90,43 +90,51 @@ export default function FlashCards({ showToast }) {
   const [activeCategory, setActiveCategory] = useState("all");
   const [flippedIds, setFlippedIds] = useState(new Set());
   const [shuffleKey, setShuffleKey] = useState(0);
+  const [shuffledOrder, setShuffledOrder] = useState(null);
   const [showConfetti, setShowConfetti] = useState(false);
   const [celebrated, setCelebrated] = useState(false);
 
-  const filtered = useMemo(() => {
-    const base =
+  const baseFiltered = useMemo(
+    () =>
       activeCategory === "all"
         ? flashCards
-        : flashCards.filter((c) => c.category === activeCategory);
+        : flashCards.filter((c) => c.category === activeCategory),
+    [activeCategory]
+  );
 
-    if (shuffleKey === 0) return base;
-
-    const shuffled = [...base];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-    return shuffled;
-  }, [activeCategory, shuffleKey]);
+  const filtered = shuffledOrder ?? baseFiltered;
 
   const flippedCount = useMemo(
     () => filtered.filter((c) => flippedIds.has(c.id)).length,
     [filtered, flippedIds]
   );
 
-  const toggleFlip = useCallback((id) => {
-    setFlippedIds((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
-      return next;
-    });
-  }, []);
+  const toggleFlip = (id) => {
+    const next = new Set(flippedIds);
+    if (next.has(id)) next.delete(id);
+    else next.add(id);
+    setFlippedIds(next);
+
+    const nowComplete = next.size === filtered.length && filtered.length > 0;
+    if (nowComplete && !celebrated) {
+      setCelebrated(true);
+      setShowConfetti(true);
+      showToast?.("🏆 Full deck explored! You unlocked the BUGFREE2026 easter egg.");
+      setTimeout(() => setShowConfetti(false), 3500);
+    }
+  };
 
   const handleShuffle = () => {
     setFlippedIds(new Set());
     setCelebrated(false);
     setShuffleKey((k) => k + 1);
+
+    const shuffled = [...baseFiltered];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    setShuffledOrder(shuffled);
   };
 
   const handleReset = () => {
@@ -135,17 +143,6 @@ export default function FlashCards({ showToast }) {
   };
 
   const isComplete = flippedCount === filtered.length && filtered.length > 0;
-
-  useEffect(() => {
-    if (!isComplete || celebrated) return;
-
-    setCelebrated(true);
-    setShowConfetti(true);
-    showToast?.("🏆 Full deck explored! You unlocked the BUGFREE2026 easter egg.");
-
-    const timer = setTimeout(() => setShowConfetti(false), 3500);
-    return () => clearTimeout(timer);
-  }, [isComplete, celebrated, showToast]);
 
   return (
     <section id="flashcards" className="mx-auto w-[min(1160px,calc(100%-2rem))] py-20">
@@ -186,6 +183,7 @@ export default function FlashCards({ showToast }) {
                 setActiveCategory(filter.value);
                 setFlippedIds(new Set());
                 setCelebrated(false);
+                setShuffledOrder(null);
               }}
               className={`rounded-full px-4 py-2.5 text-sm font-bold transition ${
                 activeCategory === filter.value

@@ -135,7 +135,6 @@ export const certifications = [
   { name: "k6 Performance Testing", issuer: "Grafana Labs", year: "2024", verify: "#", icon: "⚡" }
 ];
 
-// Fix GITHUB_URL reference - will import in data.js merge
 export const talksAndArticles = [
   { title: "Cutting Flaky Tests Below 1%", type: "Article", year: "2025", link: "#" },
   { title: "Playwright vs Cypress — My Decision Framework", type: "Article", year: "2025", link: "#" },

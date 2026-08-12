@@ -54,10 +54,10 @@ import {
   ImpactTicker,
   LiveClock,
   FloatingActions,
-  useKonamiEasterEgg,
-  useScrollSpy,
   NavLinks
 } from "./SiteEnhancements";
+import useKonamiEasterEgg from "../hooks/useKonamiEasterEgg";
+import useScrollSpy from "../hooks/useScrollSpy";
 import { LINKEDIN_URL, CALENDLY_URL, EMAIL } from "../data/portfolioExtras";
 
 const item = {
@@ -217,8 +217,12 @@ function TypingRoles() {
     }
 
     if (deleting && subIndex === 0) {
-      setDeleting(false);
-      setIndex((index + 1) % roles.length);
+      const timeout = setTimeout(() => {
+        setDeleting(false);
+        setIndex((index + 1) % roles.length);
+      }, 300);
+
+      return () => clearTimeout(timeout);
     }
   }, [subIndex, deleting, index]);
 
@@ -873,7 +877,7 @@ export default function PublicSite({
                           </a>
                         ) : (
                           <a
-                            href="#"
+                            href="#case-studies"
                             className="rounded-xl border border-slate-200/70 bg-white/70 px-4 py-2.5 text-sm font-bold dark:border-white/10 dark:bg-white/5"
                           >
                             Case Study
@@ -903,7 +907,7 @@ export default function PublicSite({
 
             {timelineData.map((timeline, index) => (
               <motion.div
-                key={timeline.year}
+                key={`${timeline.year}-${timeline.title}`}
                 initial={{ opacity: 0, y: 28 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.25 }}

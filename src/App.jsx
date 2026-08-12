@@ -1,11 +1,20 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import useLocalStorage from "./hooks/useLocalStorage";
 import useGitHub from "./hooks/useGitHub";
 import PublicSite from "./components/PublicSite";
-import Login from "./components/Login";
-import AdminDashboard from "./components/AdminDashboard";
 import { initialProjects, seedMessages } from "./data";
+
+const Login = lazy(() => import("./components/Login"));
+const AdminDashboard = lazy(() => import("./components/AdminDashboard"));
+
+function RouteFallback() {
+  return (
+    <div className="grid min-h-screen place-items-center text-slate-400">
+      <span className="h-8 w-8 animate-spin rounded-full border-2 border-current border-t-transparent" />
+    </div>
+  );
+}
 
 export default function App() {
   const [theme, setTheme] = useLocalStorage("p360-theme", "dark");
@@ -116,7 +125,9 @@ export default function App() {
             exit={{ opacity: 0, y: -16 }}
             transition={{ duration: 0.35 }}
           >
-            <Login onLogin={handleLogin} onBack={() => setPage("site")} />
+            <Suspense fallback={<RouteFallback />}>
+              <Login onLogin={handleLogin} onBack={() => setPage("site")} />
+            </Suspense>
           </motion.div>
         )}
 
@@ -128,19 +139,21 @@ export default function App() {
             exit={{ opacity: 0, y: -16 }}
             transition={{ duration: 0.35 }}
           >
-            <AdminDashboard
-              user={user}
-              theme={theme}
-              setTheme={setTheme}
-              onLogout={handleLogout}
-              projects={projects}
-              setProjects={setProjects}
-              messages={messages}
-              setMessages={setMessages}
-              views={views}
-              showToast={showToast}
-              github={github}
-            />
+            <Suspense fallback={<RouteFallback />}>
+              <AdminDashboard
+                user={user}
+                theme={theme}
+                setTheme={setTheme}
+                onLogout={handleLogout}
+                projects={projects}
+                setProjects={setProjects}
+                messages={messages}
+                setMessages={setMessages}
+                views={views}
+                showToast={showToast}
+                github={github}
+              />
+            </Suspense>
           </motion.div>
         )}
       </AnimatePresence>

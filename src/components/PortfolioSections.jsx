@@ -67,7 +67,7 @@ export function AvailabilityStrip() {
         <span className="text-slate-400">·</span>
         <span>Next slot: {next?.day} {next?.slots[0]} GMT+2</span>
         <a
-          href={WHATSAPP_URL}
+          href={CALENDLY_URL}
           target="_blank"
           rel="noreferrer"
           className="rounded-full bg-emerald-600 px-4 py-1 text-white transition hover:bg-emerald-500"

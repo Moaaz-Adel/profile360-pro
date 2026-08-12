@@ -2,11 +2,6 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { GITHUB_URL, impactTicker, navSections } from "../data";
 
-const KONAMI = [
-  "ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown",
-  "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"
-];
-
 export function ScrollProgress() {
   const [progress, setProgress] = useState(0);
 
@@ -178,18 +173,30 @@ export function FloatingActions({ showToast }) {
 }
 
 export function ConfettiBurst({ active }) {
-  if (!active) return null;
+  const [pieces, setPieces] = useState([]);
 
-  const colors = ["#10b981", "#06b6d4", "#8b5cf6", "#f59e0b", "#ec4899", "#3b82f6"];
-  const pieces = Array.from({ length: 48 }, (_, i) => ({
-    id: i,
-    left: `${Math.random() * 100}%`,
-    delay: `${Math.random() * 0.6}s`,
-    duration: `${2.2 + Math.random() * 1.5}s`,
-    color: colors[i % colors.length],
-    size: 6 + Math.random() * 6,
-    rotate: Math.random() * 360
-  }));
+  useEffect(() => {
+    if (!active) return;
+
+    const colors = ["#10b981", "#06b6d4", "#8b5cf6", "#f59e0b", "#ec4899", "#3b82f6"];
+    const timer = setTimeout(() => {
+      setPieces(
+        Array.from({ length: 48 }, (_, i) => ({
+          id: i,
+          left: `${Math.random() * 100}%`,
+          delay: `${Math.random() * 0.6}s`,
+          duration: `${2.2 + Math.random() * 1.5}s`,
+          color: colors[i % colors.length],
+          size: 6 + Math.random() * 6,
+          rotate: Math.random() * 360
+        }))
+      );
+    }, 0);
+
+    return () => clearTimeout(timer);
+  }, [active]);
+
+  if (!active) return null;
 
   return (
     <div className="pointer-events-none fixed inset-0 z-[200] overflow-hidden">
@@ -210,55 +217,6 @@ export function ConfettiBurst({ active }) {
       ))}
     </div>
   );
-}
-
-export function useKonamiEasterEgg(showToast) {
-  useEffect(() => {
-    const buffer = [];
-
-    function onKeyDown(e) {
-      buffer.push(e.key);
-      if (buffer.length > KONAMI.length) buffer.shift();
-
-      if (buffer.join(",") === KONAMI.join(",")) {
-        showToast("🏆 Achievement unlocked! Code: BUGFREE2026 — email me to claim your QA consult.");
-        buffer.length = 0;
-      }
-    }
-
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [showToast]);
-}
-
-export function useScrollSpy(sectionIds) {
-  const [active, setActive] = useState(sectionIds[0] || "home");
-
-  useEffect(() => {
-    const elements = sectionIds
-      .map((id) => document.getElementById(id))
-      .filter(Boolean);
-
-    if (!elements.length) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-
-        if (visible[0]?.target.id) {
-          setActive(visible[0].target.id);
-        }
-      },
-      { rootMargin: "-30% 0px -55% 0px", threshold: [0, 0.25, 0.5] }
-    );
-
-    elements.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, [sectionIds]);
-
-  return active;
 }
 
 export function NavLinks({ activeSection, className = "" }) {
