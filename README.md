@@ -155,7 +155,7 @@ Protocol
 Endpoint
 Status
 🌐 Portfolio
-moaaz-adel.github.io/Moaaz-Portfolio-360
+https://moaaz-adel.github.io/profile360-pro/
 🟢 Online
 📧 Email
 moaaz.adel.m@gmail.com

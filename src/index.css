@@ -29,3 +29,37 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   @apply bg-violet-500/50;
 }
+
+/* 3D Flash Card flip */
+.flash-card-perspective {
+  perspective: 1400px;
+}
+
+.flash-card-scene {
+  perspective: 1400px;
+}
+
+.flash-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.75s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.flash-card-inner.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.flash-card-face {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.flash-card-back {
+  transform: rotateY(180deg);
+}

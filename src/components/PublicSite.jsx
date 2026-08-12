@@ -31,6 +31,7 @@ import {
   autoGradients,
   getRepoEmoji
 } from "../data";
+import FlashCards from "./FlashCards";
 
 const item = {
   hidden: { opacity: 0, y: 24 },
@@ -306,6 +307,7 @@ export default function PublicSite({
           <nav className="hidden items-center gap-6 text-sm font-semibold text-slate-600 dark:text-slate-300 lg:flex">
             <a href="#about" className="transition hover:text-emerald-500">About</a>
             <a href="#skills" className="transition hover:text-emerald-500">Skills</a>
+            <a href="#flashcards" className="transition hover:text-emerald-500">Flash Cards</a>
             <a href="#projects" className="transition hover:text-emerald-500">Projects</a>
             <a href="#timeline" className="transition hover:text-emerald-500">Timeline</a>
             <a href="#analytics" className="transition hover:text-emerald-500">Analytics</a>
@@ -735,6 +737,8 @@ export default function PublicSite({
             </motion.div>
           </div>
         </Section>
+
+        <FlashCards />
 
         <Section id="projects">
           <SectionHead eyebrow="Projects" title="Featured Frameworks & Tools" />

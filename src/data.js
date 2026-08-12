@@ -234,3 +234,126 @@ export const projectGradients = [
   { label: "Sky Indigo", value: "bg-gradient-to-br from-sky-500 to-indigo-500" },
   { label: "Orange Yellow", value: "bg-gradient-to-br from-orange-500 to-yellow-500" }
 ];
+
+export const flashCards = [
+  {
+    id: 1,
+    category: "projects",
+    icon: "📖",
+    gradient: "from-violet-500 via-fuchsia-500 to-cyan-500",
+    glow: "shadow-violet-500/40",
+    tag: "Readora · 2026",
+    front: "What did Moaaz build with Readora?",
+    back: "An Arabic-first AI reading platform with progress tracking, file uploads, and gamification — shipped with Next.js, OpenAI, PostgreSQL, and Prisma."
+  },
+  {
+    id: 2,
+    category: "projects",
+    icon: "🌌",
+    gradient: "from-indigo-500 via-violet-500 to-purple-500",
+    glow: "shadow-indigo-500/40",
+    tag: "GitHub Universe · 2026",
+    front: "What is Moaaz's GitHub Universe project?",
+    back: "An interactive 3D developer portfolio that transforms a GitHub profile into a visual identity — built with Next.js, Three.js, and the GitHub REST API."
+  },
+  {
+    id: 3,
+    category: "impact",
+    icon: "⏱️",
+    gradient: "from-amber-500 via-orange-500 to-rose-500",
+    glow: "shadow-amber-500/40",
+    tag: "Regression · 85% ↓",
+    front: "How much did Moaaz cut regression testing time?",
+    back: "From 8 hours down to 1 hour — an 85% reduction — by building parallel Playwright & Cypress suites wired into CI/CD quality gates."
+  },
+  {
+    id: 4,
+    category: "impact",
+    icon: "🐛",
+    gradient: "from-rose-500 via-pink-500 to-fuchsia-500",
+    glow: "shadow-rose-500/40",
+    tag: "Bug Graveyard",
+    front: "What's Moaaz's pre-production bug track record?",
+    back: "500+ bugs caught before release — checkout memory leaks, payment gateway race conditions, XSS in profile uploads — with zero P0 defects escaped in the last 12 months."
+  },
+  {
+    id: 5,
+    category: "automation",
+    icon: "🤖",
+    gradient: "from-emerald-500 via-teal-500 to-cyan-500",
+    glow: "shadow-emerald-500/40",
+    tag: "92% Automated",
+    front: "What automation coverage has Moaaz achieved?",
+    back: "92% of critical user journeys automated in TypeScript frameworks, with flaky tests reduced to under 1% using custom retries, API mocks, and Playwright trace debugging."
+  },
+  {
+    id: 6,
+    category: "automation",
+    icon: "🌲",
+    gradient: "from-green-500 via-emerald-500 to-teal-500",
+    glow: "shadow-green-500/40",
+    tag: "Cypress Repo",
+    front: "What does automation-exercise-cypress showcase?",
+    back: "Moaaz's public repo fully testing Automation Exercise Challenges — UI and API layers — demonstrating production-grade Cypress patterns and test architecture."
+  },
+  {
+    id: 7,
+    category: "career",
+    icon: "🧪",
+    gradient: "from-teal-500 via-emerald-500 to-lime-500",
+    glow: "shadow-teal-500/40",
+    tag: "Since 2022",
+    front: "Where did Moaaz's deep testing journey begin?",
+    back: "A focused dive into Cucumber BDD, Cypress, blockchain testing, and distributed systems frameworks — the foundation that shaped his Senior QA Engineer path."
+  },
+  {
+    id: 8,
+    category: "ai-devops",
+    icon: "🧠",
+    gradient: "from-sky-500 via-blue-500 to-indigo-500",
+    glow: "shadow-sky-500/40",
+    tag: "AI & DevOps · 2024",
+    front: "What did Moaaz explore in AI & DevOps during 2024?",
+    back: "AI agents with khoj (GPT, Claude, Gemini, Llama, Qwen) and container workflows via lazydocker — applying a QA engineer's rigor to emerging AI and infra tooling."
+  },
+  {
+    id: 9,
+    category: "projects",
+    icon: "🏗️",
+    gradient: "from-sky-500 via-indigo-500 to-violet-500",
+    glow: "shadow-sky-500/40",
+    tag: "Provider · 2025",
+    front: "What did Moaaz ship in his Provider projects?",
+    back: "TypeScript-first provider and infrastructure projects that hardened his full-stack skills — the same engineering discipline he brings to test automation architecture."
+  },
+  {
+    id: 10,
+    category: "cicd",
+    icon: "🔄",
+    gradient: "from-fuchsia-500 via-violet-500 to-purple-500",
+    glow: "shadow-fuchsia-500/40",
+    tag: "CI/CD Pipeline",
+    front: "How does Moaaz embed quality into the SDLC?",
+    back: "GitHub Actions & Jenkins pipelines with Dockerized test environments, parallel Playwright E2E, Allure reports, Slack alerts, and deploy-blocking quality gates."
+  },
+  {
+    id: 11,
+    category: "career",
+    icon: "📋",
+    gradient: "from-cyan-500 via-emerald-500 to-green-500",
+    glow: "shadow-cyan-500/40",
+    tag: "ISTQB · Remote",
+    front: "What defines Moaaz as a QA professional?",
+    back: "ISTQB-certified Senior QA Engineer based in Egypt (GMT+2, remote-flexible), specializing in shift-left testing across E2E, API, performance, and mobile layers."
+  },
+  {
+    id: 12,
+    category: "career",
+    icon: "🏆",
+    gradient: "from-orange-500 via-yellow-500 to-amber-500",
+    glow: "shadow-orange-500/40",
+    tag: "Recruiter Easter Egg",
+    front: "Found the hidden recruiter easter egg?",
+    back: "Promo code BUGFREE2026 — email moaaz.adel.m@gmail.com with it for a guaranteed 24-hour response and a free 30-minute QA architecture consultation."
+  }
+];
