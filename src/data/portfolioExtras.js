@@ -1,4 +1,4 @@
-export const LINKEDIN_URL = "https://www.linkedin.com/in/moaaz-adel";
+export const LINKEDIN_URL = "https://www.linkedin.com/in/moaz-moharam/";
 export const CALENDLY_URL = "https://calendly.com/moaaz-adel";
 export const EMAIL = "moaaz.adel.m@gmail.com";
 export const WHATSAPP_URL = "https://wa.me/201014074200";
