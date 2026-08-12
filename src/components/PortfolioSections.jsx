@@ -15,6 +15,8 @@ import {
   qaLabMetrics,
   resumeVariants,
   breakDemoFields,
+  experienceData,
+  educationData,
   CALENDLY_URL,
   EMAIL,
   WHATSAPP_URL,
@@ -148,6 +150,126 @@ export function VideoIntro({ terminalMode }) {
         )}
       </AnimatePresence>
     </>
+  );
+}
+
+/* 17 — Experience & Education */
+export function ExperienceSection() {
+  return (
+    <SectionShell
+      id="experience"
+      eyebrow="Career Journey"
+      title="Experience & Education"
+      subtitle="6+ years engineering quality into fintech, IoT, and enterprise platforms — from hands-on tester to senior quality engineer."
+    >
+      <div className="relative mx-auto max-w-[900px] pl-8">
+        <div className="absolute bottom-2 left-2 top-2 w-[3px] rounded-full bg-gradient-to-b from-emerald-500 via-cyan-500 to-violet-500 opacity-70" />
+
+        {experienceData.map((job, index) => (
+          <motion.div
+            key={job.id}
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.5, delay: index * 0.06 }}
+            className="relative pb-10 pl-10"
+          >
+            <span
+              className={`absolute left-[-5px] top-1.5 h-4 w-4 rounded-full shadow-[0_0_0_7px_rgba(16,185,129,0.15)] ${
+                job.current
+                  ? "animate-pulse bg-gradient-to-r from-emerald-400 to-cyan-400"
+                  : "bg-gradient-to-r from-emerald-500 to-cyan-500"
+              }`}
+            />
+
+            <Panel>
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <span className="text-3xl">{job.icon}</span>
+                  <div>
+                    <h3 className="font-display text-lg font-bold">{job.role}</h3>
+                    <p className="flex flex-wrap items-center gap-2 text-sm font-semibold text-emerald-600 dark:text-emerald-400">
+                      {job.company}
+                      {job.promoted && (
+                        <span className="rounded-full bg-violet-500/15 px-2 py-0.5 text-xs font-bold text-violet-500">
+                          ↑ Promoted
+                        </span>
+                      )}
+                      {job.current && (
+                        <span className="rounded-full bg-emerald-500/15 px-2 py-0.5 text-xs font-bold text-emerald-500">
+                          Current
+                        </span>
+                      )}
+                    </p>
+                  </div>
+                </div>
+                <div className="text-right text-sm text-slate-500 dark:text-slate-400">
+                  <p className="font-bold">{job.period}</p>
+                  <p>{job.location}</p>
+                </div>
+              </div>
+
+              <p className="mt-2 text-xs font-semibold uppercase tracking-wide text-slate-400">
+                {job.type}
+              </p>
+
+              <div className="mt-3 flex flex-wrap gap-2">
+                {job.industries.map((ind) => (
+                  <span
+                    key={ind}
+                    className="rounded-full border border-slate-200/70 bg-white/70 px-3 py-1 text-xs font-semibold dark:border-white/10 dark:bg-white/5"
+                  >
+                    {ind}
+                  </span>
+                ))}
+              </div>
+
+              <ul className="mt-4 space-y-2">
+                {job.bullets.map((bullet) => (
+                  <li key={bullet} className="flex gap-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
+                    <span className="mt-0.5 text-emerald-500">▹</span>
+                    <span>{bullet}</span>
+                  </li>
+                ))}
+              </ul>
+
+              {job.tech && (
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {job.tech.map((t) => (
+                    <span
+                      key={t}
+                      className="rounded-full bg-emerald-500/10 px-2.5 py-1 text-xs font-bold text-emerald-600 dark:text-emerald-400"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </Panel>
+          </motion.div>
+        ))}
+      </div>
+
+      <div className="mt-14">
+        <h3 className="mb-6 text-center font-display text-2xl font-bold">Education</h3>
+        <div className="mx-auto grid max-w-[900px] gap-4 sm:grid-cols-2">
+          {educationData.map((edu) => (
+            <Panel key={edu.degree}>
+              <div className="flex items-start gap-4">
+                <span className="text-3xl">{edu.icon}</span>
+                <div>
+                  <h4 className="font-bold leading-6">{edu.degree}</h4>
+                  <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{edu.school}</p>
+                  <p className="mt-1 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+                    {edu.period}
+                  </p>
+                </div>
+              </div>
+            </Panel>
+          ))}
+        </div>
+      </div>
+    </SectionShell>
   );
 }
 
@@ -607,7 +729,10 @@ export function CertificationsSection() {
           >
             <span className="text-4xl">{cert.icon}</span>
             <h3 className="mt-3 font-bold">{cert.name}</h3>
-            <p className="text-sm text-slate-500">{cert.issuer} · {cert.year}</p>
+            <p className="text-sm text-slate-500">
+              {cert.issuer}
+              {cert.year && ` · ${cert.year}`}
+            </p>
           </a>
         ))}
       </div>

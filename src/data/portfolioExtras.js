@@ -129,10 +129,99 @@ export const compareRows = [
 ];
 
 export const certifications = [
-  { name: "ISTQB Foundation", issuer: "ISTQB", year: "2023", verify: "#", icon: "📋" },
-  { name: "Playwright Expert", issuer: "Portfolio Proven", year: "2024", verify: "https://github.com/Moaaz-Adel", icon: "🎭" },
-  { name: "Cypress Automation", issuer: "Open Source", year: "2024", verify: "https://github.com/Moaaz-Adel/automation-exercise-cypress", icon: "🌲" },
-  { name: "k6 Performance Testing", issuer: "Grafana Labs", year: "2024", verify: "#", icon: "⚡" }
+  { name: "Generative AI Leader Certification", issuer: "Google", year: "2026", verify: "#", icon: "🧠" },
+  { name: "GenAI & AI Agents for QA Automation", issuer: "Copilot & Claude", year: "2026", verify: "#", icon: "✨" },
+  { name: "Performance Test Specialist", issuer: "ISTQB", year: "2022", verify: "#", icon: "⚡" },
+  { name: "Mobile Application Testing", issuer: "ISTQB · Foundation Level", year: "2021", verify: "#", icon: "📱" },
+  { name: "Test Automation Engineer", issuer: "ISTQB · Advanced Level", year: "2021", verify: "#", icon: "🤖" },
+  { name: "Certified Agile Tester", issuer: "ISTQB · Foundation Level", year: "2020", verify: "#", icon: "🔄" },
+  { name: "Certified Tester", issuer: "ISTQB · Foundation Level", year: "2018", verify: "#", icon: "📋" },
+  { name: "Test Automation University", issuer: "Technical, Automation & Management", year: "", verify: "https://bit.ly/3H8VJnv", icon: "🎓" }
+];
+
+export const experienceData = [
+  {
+    id: "finjourney",
+    company: "FinJourney",
+    type: "Part-Time / Freelance",
+    role: "Senior Quality Engineer",
+    period: "2024 — Present",
+    location: "Ireland, Remote",
+    industries: ["Fintech", "Digital Transformation"],
+    icon: "💳",
+    current: true,
+    bullets: [
+      "Own functional and non-functional test planning for fintech products, aligning coverage with risk, user journeys, and release goals.",
+      "Built maintainable Playwright automation that cut manual testing effort by 60%, freeing capacity for exploratory and risk-based testing.",
+      "Embedded automated checks into GitHub Actions on every pull request, plus nightly regression runs to catch issues earlier.",
+      "Automated k6 load, stress, and spike tests to surface performance bottlenecks before release."
+    ],
+    tech: ["Playwright", "TypeScript", "GitHub Actions", "k6", "CI/CD"]
+  },
+  {
+    id: "jobsity",
+    company: "Jobsity LLC",
+    type: "Full-Time · Client: Zebra Technologies",
+    role: "Senior Quality Engineer",
+    period: "2023 — 2024",
+    location: "US, Remote",
+    industries: ["Digital Transformation"],
+    icon: "🦓",
+    bullets: [
+      "Delivered quality engineering for a client-facing low-code/no-code platform, turning specs and user stories into full test coverage.",
+      "Designed risk-based test scenarios across core functionality, end-to-end workflows, and data integrity.",
+      "Balanced manual and automated testing to validate behavior efficiently and give delivery teams fast feedback.",
+      "Ran exploratory testing to catch defects and usability issues scripted coverage missed."
+    ]
+  },
+  {
+    id: "iotblue-senior",
+    company: "IoTBlue",
+    type: "Full-Time",
+    role: "Senior Quality Engineer",
+    period: "2019 — 2023",
+    location: "Egypt & Spain",
+    industries: ["IoT Ecosystems", "Security Operations (SOC)", "Industrial Solutions"],
+    icon: "📡",
+    promoted: true,
+    bullets: [
+      "Owned test planning and automation strategy across the company's IoT and security product lines.",
+      "Built testing processes from the ground up and led hiring, upskilling, and mentoring for a self-managed QA team.",
+      "Drove CI/CD and continuous testing adoption, helping the team ship faster with more confidence.",
+      "Guided agile, iterative development and ran knowledge-sharing sessions across the team."
+    ]
+  },
+  {
+    id: "iotblue-set1",
+    company: "IoTBlue",
+    type: "Full-Time",
+    role: "Software Engineer in Test I",
+    period: "2018 — 2019",
+    location: "Egypt",
+    industries: ["IoT Ecosystems", "Security Operations (SOC)", "Industrial Solutions"],
+    icon: "🔧",
+    bullets: [
+      "Designed and executed test cases across HTTP, MQTT, and LoRaWAN protocols, plus UI and API layers.",
+      "Applied shift-left testing to catch defects earlier in the development cycle.",
+      "Ran functional, usability, and compatibility testing, translating business requirements into test strategy.",
+      "Contributed to test plans alongside senior testers, covering risk, scope, and resourcing."
+    ]
+  }
+];
+
+export const educationData = [
+  {
+    degree: "Master's Degree in Software Testing and Quality Assurance",
+    school: "University of Maryland Global Campus",
+    period: "2019 — 2020",
+    icon: "🎓"
+  },
+  {
+    degree: "Bachelor's Degree in Computer Science",
+    school: "Faculty of Computers and Artificial Intelligence",
+    period: "2013 — 2017",
+    icon: "🎓"
+  }
 ];
 
 export const talksAndArticles = [

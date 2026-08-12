@@ -21,7 +21,6 @@ import {
 import {
   skillBars,
   radarData,
-  timelineData,
   testimonials,
   growthArea,
   trafficArea,
@@ -36,6 +35,7 @@ import FlashCards from "./FlashCards";
 import {
   AvailabilityStrip,
   VideoIntro,
+  ExperienceSection,
   CaseStudiesSection,
   QALabSection,
   PipelineSection,
@@ -709,6 +709,8 @@ export default function PublicSite({
           </div>
         </Section>
 
+        <ExperienceSection />
+
         <CaseStudiesSection />
         <QALabSection github={github} />
         <PipelineSection />
@@ -879,37 +881,6 @@ export default function PublicSite({
         <OpenSourceSection github={github} />
         <ResumeSection />
         <BlogSection />
-
-        <Section id="timeline">
-          <SectionHead eyebrow="Journey" title="Career & QA Evolution" />
-
-          <div className="relative mx-auto max-w-[860px] pl-8">
-            <div className="absolute bottom-2 left-2 top-2 w-[3px] rounded-full bg-gradient-to-b from-emerald-500 via-cyan-500 to-blue-500 opacity-70" />
-
-            {timelineData.map((timeline, index) => (
-              <motion.div
-                key={`${timeline.year}-${timeline.title}`}
-                initial={{ opacity: 0, y: 28 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.25 }}
-                transition={{ duration: 0.55, delay: index * 0.04 }}
-                className="relative pb-10 pl-10"
-              >
-                <span className="absolute left-[-5px] top-1.5 h-4 w-4 rounded-full bg-gradient-to-r from-emerald-500 to-cyan-500 shadow-[0_0_0_7px_rgba(16,185,129,0.15)]" />
-
-                <span className="mb-3 inline-block rounded-full border border-slate-200/70 bg-white/70 px-4 py-2 text-sm font-bold text-emerald-600 dark:border-white/10 dark:bg-white/5 dark:text-emerald-400">
-                  {timeline.year}
-                </span>
-
-                <h3 className="font-display text-2xl font-bold">{timeline.title}</h3>
-
-                <p className="mt-3 leading-7 text-slate-600 dark:text-slate-300">
-                  {timeline.description}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </Section>
 
         <Section id="analytics">
           <SectionHead eyebrow="Analytics" title="Quality & Testing Insights" />

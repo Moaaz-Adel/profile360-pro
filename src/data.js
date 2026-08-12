@@ -129,34 +129,6 @@ export const radarData = [
   { skill: "DevOps / Docker", value: 76 }
 ];
 
-export const timelineData = [
-  {
-    year: "2026",
-    title: "Readora — Arabic AI Reading Platform",
-    description: "Built an Arabic-first reading app with AI integration, progress tracking, uploads, and gamification using Next.js, OpenAI, PostgreSQL, and Prisma."
-  },
-  {
-    year: "2026",
-    title: "GitHub Universe — Interactive 3D Portfolio",
-    description: "Designed and shipped an interactive GitHub profile universe combining Next.js, Three.js, and the GitHub API for a visually rich developer identity."
-  },
-  {
-    year: "2025",
-    title: "Provider & Infrastructure Projects",
-    description: "Shipped provider and other TypeScript-first projects, solidifying modern full-stack development skills."
-  },
-  {
-    year: "2024",
-    title: "AI & DevOps Exploration",
-    description: "Explored AI agents with khoj (LLM integrations: GPT, Claude, Gemini, Llama, Qwen) and Docker workflows via lazydocker."
-  },
-  {
-    year: "2022",
-    title: "Deep Dive into Testing",
-    description: "Curated expertise in testing — Cucumber, Cypress, blockchain testing, and distributed systems testing frameworks."
-  }
-];
-
 export const testimonials = [
   {
     quote: "A highly creative developer who understands how to make interfaces feel alive and engaging.",
@@ -249,6 +221,7 @@ export const impactTicker = [
 export const navSections = [
   { id: "home", label: "Home" },
   { id: "about", label: "About" },
+  { id: "experience", label: "Experience" },
   { id: "case-studies", label: "Cases" },
   { id: "qa-lab", label: "QA Lab" },
   { id: "skills", label: "Skills" },
