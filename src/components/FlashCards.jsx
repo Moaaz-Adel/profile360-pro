@@ -27,7 +27,7 @@ function FlashCard({ card, index, isFlipped, onFlip }) {
             type="button"
             onClick={onFlip}
             aria-pressed={isFlipped}
-            aria-label={`Flash card: ${card.front}. ${isFlipped ? "Showing answer" : "Click to reveal answer"}`}
+            aria-label={`Experience: ${card.front}. ${isFlipped ? "Showing details" : "Tap to see details"}`}
             className="flash-card-scene relative h-[300px] w-full rounded-[25px] text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-950"
           >
             <div className={`flash-card-inner h-full w-full ${isFlipped ? "is-flipped" : ""}`}>
@@ -50,7 +50,7 @@ function FlashCard({ card, index, isFlipped, onFlip }) {
 
                   <div className="mt-4 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-slate-400">
                     <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
-                    Tap to flip
+                    Tap for details
                   </div>
                 </div>
               </div>
@@ -63,7 +63,7 @@ function FlashCard({ card, index, isFlipped, onFlip }) {
                 <div className="relative flex h-full flex-col">
                   <div className="flex items-center justify-between">
                     <span className="rounded-full border border-white/30 bg-white/15 px-3 py-1 text-xs font-bold backdrop-blur-sm">
-                      ✓ Answer
+                      My Experience
                     </span>
                     <span className="text-2xl opacity-80">{card.icon}</span>
                   </div>
@@ -73,7 +73,7 @@ function FlashCard({ card, index, isFlipped, onFlip }) {
                   </p>
 
                   <div className="mt-4 text-xs font-semibold uppercase tracking-wider text-white/60">
-                    Tap to flip back
+                    Tap to go back
                   </div>
                 </div>
               </div>
@@ -143,8 +143,8 @@ export default function FlashCards() {
           Moaaz&apos;s Experience Cards
         </h2>
         <p className="mt-4 max-w-2xl text-slate-600 dark:text-slate-300">
-          Flip through highlights from my career — Readora, GitHub Universe, automation
-          wins, and the bugs I stopped before production. Click any card to reveal more.
+          Each card is a chapter from my career — projects I shipped, automation
+          wins I delivered, and impact I made. Flip to read the full story.
         </p>
       </motion.div>
 

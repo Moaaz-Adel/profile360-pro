@@ -243,8 +243,8 @@ export const flashCards = [
     gradient: "from-violet-500 via-fuchsia-500 to-cyan-500",
     glow: "shadow-violet-500/40",
     tag: "Readora · 2026",
-    front: "What did Moaaz build with Readora?",
-    back: "An Arabic-first AI reading platform with progress tracking, file uploads, and gamification — shipped with Next.js, OpenAI, PostgreSQL, and Prisma."
+    front: "I built Readora — an Arabic-first AI reading platform",
+    back: "Shipped in 2026 with Next.js, OpenAI, PostgreSQL, and Prisma. Added progress tracking, file uploads, and gamification — designed for Arabic readers who want a modern, AI-powered learning experience."
   },
   {
     id: 2,
@@ -253,8 +253,8 @@ export const flashCards = [
     gradient: "from-indigo-500 via-violet-500 to-purple-500",
     glow: "shadow-indigo-500/40",
     tag: "GitHub Universe · 2026",
-    front: "What is Moaaz's GitHub Universe project?",
-    back: "An interactive 3D developer portfolio that transforms a GitHub profile into a visual identity — built with Next.js, Three.js, and the GitHub REST API."
+    front: "I created GitHub Universe — my interactive 3D portfolio",
+    back: "Combined Next.js, Three.js, and the GitHub REST API to turn a developer profile into a visual identity. Built to stand out to recruiters and showcase engineering creativity beyond a static README."
   },
   {
     id: 3,
@@ -263,8 +263,8 @@ export const flashCards = [
     gradient: "from-amber-500 via-orange-500 to-rose-500",
     glow: "shadow-amber-500/40",
     tag: "Regression · 85% ↓",
-    front: "How much did Moaaz cut regression testing time?",
-    back: "From 8 hours down to 1 hour — an 85% reduction — by building parallel Playwright & Cypress suites wired into CI/CD quality gates."
+    front: "I reduced regression testing from 8 hours to 1",
+    back: "An 85% cut in release-cycle testing time. Achieved by designing parallel Playwright and Cypress suites integrated into CI/CD pipelines with deploy-blocking quality gates."
   },
   {
     id: 4,
@@ -273,8 +273,8 @@ export const flashCards = [
     gradient: "from-rose-500 via-pink-500 to-fuchsia-500",
     glow: "shadow-rose-500/40",
     tag: "Bug Graveyard",
-    front: "What's Moaaz's pre-production bug track record?",
-    back: "500+ bugs caught before release — checkout memory leaks, payment gateway race conditions, XSS in profile uploads — with zero P0 defects escaped in the last 12 months."
+    front: "I've intercepted 500+ bugs before they reached users",
+    back: "Caught checkout memory leaks, payment gateway race conditions, and XSS in profile uploads. Zero P0 defects escaped to production in the last 12 months — that's my Bug Graveyard record."
   },
   {
     id: 5,
@@ -283,8 +283,8 @@ export const flashCards = [
     gradient: "from-emerald-500 via-teal-500 to-cyan-500",
     glow: "shadow-emerald-500/40",
     tag: "92% Automated",
-    front: "What automation coverage has Moaaz achieved?",
-    back: "92% of critical user journeys automated in TypeScript frameworks, with flaky tests reduced to under 1% using custom retries, API mocks, and Playwright trace debugging."
+    front: "I automated 92% of critical user journeys",
+    back: "Built TypeScript test frameworks covering web and API layers. Drove flaky test rate below 1% using custom retries, API mocks, and Playwright trace-based root-cause analysis."
   },
   {
     id: 6,
@@ -292,9 +292,9 @@ export const flashCards = [
     icon: "🌲",
     gradient: "from-green-500 via-emerald-500 to-teal-500",
     glow: "shadow-green-500/40",
-    tag: "Cypress Repo",
-    front: "What does automation-exercise-cypress showcase?",
-    back: "Moaaz's public repo fully testing Automation Exercise Challenges — UI and API layers — demonstrating production-grade Cypress patterns and test architecture."
+    tag: "Open Source",
+    front: "I open-sourced full Cypress UI + API test coverage",
+    back: "My automation-exercise-cypress repo on GitHub fully tests Automation Exercise Challenges — both UI and API — demonstrating how I architect production-grade E2E automation from scratch."
   },
   {
     id: 7,
@@ -303,8 +303,8 @@ export const flashCards = [
     gradient: "from-teal-500 via-emerald-500 to-lime-500",
     glow: "shadow-teal-500/40",
     tag: "Since 2022",
-    front: "Where did Moaaz's deep testing journey begin?",
-    back: "A focused dive into Cucumber BDD, Cypress, blockchain testing, and distributed systems frameworks — the foundation that shaped his Senior QA Engineer path."
+    front: "Since 2022, I've specialized in test engineering",
+    back: "Deep expertise in Cucumber BDD, Cypress, blockchain testing, and distributed systems frameworks. This is where I evolved from executing tests to architecting quality systems."
   },
   {
     id: 8,
@@ -313,8 +313,8 @@ export const flashCards = [
     gradient: "from-sky-500 via-blue-500 to-indigo-500",
     glow: "shadow-sky-500/40",
     tag: "AI & DevOps · 2024",
-    front: "What did Moaaz explore in AI & DevOps during 2024?",
-    back: "AI agents with khoj (GPT, Claude, Gemini, Llama, Qwen) and container workflows via lazydocker — applying a QA engineer's rigor to emerging AI and infra tooling."
+    front: "In 2024, I explored AI agents and DevOps workflows",
+    back: "Worked with khoj integrating GPT, Claude, Gemini, Llama, and Qwen. Used lazydocker for container management — applying QA rigor to emerging AI and infrastructure tooling."
   },
   {
     id: 9,
@@ -323,8 +323,8 @@ export const flashCards = [
     gradient: "from-sky-500 via-indigo-500 to-violet-500",
     glow: "shadow-sky-500/40",
     tag: "Provider · 2025",
-    front: "What did Moaaz ship in his Provider projects?",
-    back: "TypeScript-first provider and infrastructure projects that hardened his full-stack skills — the same engineering discipline he brings to test automation architecture."
+    front: "In 2025, I shipped TypeScript infrastructure projects",
+    back: "Built provider and infrastructure projects that strengthened my full-stack engineering. The same architectural discipline I bring when designing scalable test automation frameworks."
   },
   {
     id: 10,
@@ -333,8 +333,8 @@ export const flashCards = [
     gradient: "from-fuchsia-500 via-violet-500 to-purple-500",
     glow: "shadow-fuchsia-500/40",
     tag: "CI/CD Pipeline",
-    front: "How does Moaaz embed quality into the SDLC?",
-    back: "GitHub Actions & Jenkins pipelines with Dockerized test environments, parallel Playwright E2E, Allure reports, Slack alerts, and deploy-blocking quality gates."
+    front: "I embed quality gates into every release pipeline",
+    back: "Designed GitHub Actions and Jenkins workflows with Dockerized test environments, parallel Playwright E2E, Allure reporting, Slack alerts, and hard blocks on failed deploys."
   },
   {
     id: 11,
@@ -343,8 +343,8 @@ export const flashCards = [
     gradient: "from-cyan-500 via-emerald-500 to-green-500",
     glow: "shadow-cyan-500/40",
     tag: "ISTQB · Remote",
-    front: "What defines Moaaz as a QA professional?",
-    back: "ISTQB-certified Senior QA Engineer based in Egypt (GMT+2, remote-flexible), specializing in shift-left testing across E2E, API, performance, and mobile layers."
+    front: "I'm an ISTQB-certified Senior QA Engineer",
+    back: "Remote from Egypt (GMT+2, flexible globally). I practice shift-left testing across E2E, API, performance, and mobile — engineering quality pipelines, not just writing test cases."
   },
   {
     id: 12,
@@ -352,8 +352,8 @@ export const flashCards = [
     icon: "🏆",
     gradient: "from-orange-500 via-yellow-500 to-amber-500",
     glow: "shadow-orange-500/40",
-    tag: "Recruiter Easter Egg",
-    front: "Found the hidden recruiter easter egg?",
-    back: "Promo code BUGFREE2026 — email moaaz.adel.m@gmail.com with it for a guaranteed 24-hour response and a free 30-minute QA architecture consultation."
+    tag: "Let's Connect",
+    front: "Recruiters — you found my hidden card",
+    back: "Email me at moaaz.adel.m@gmail.com with code BUGFREE2026 for a guaranteed 24-hour response and a free 30-minute QA architecture consultation for your team."
   }
 ];
